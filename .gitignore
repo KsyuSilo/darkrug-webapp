@@ -22,3 +22,75 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Базовый .NET шаблон
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# NuGet Packages
+packages/
+*.nupkg
+!**/*.nupkg
+
+# Базы данных и секреты (критично для безопасности!)
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+**/App_Data/
+.env
+appsettings*.json  # закомментируйте если нужны локальные настройки
+secrets.json
+
+# Логи и кэш
+logs/
+*.log
+*.cache
+
+# Фронтенд (если используете npm/yarn для UI)
+**/node_modules/
+**/wwwroot/lib/
+**/wwwroot/node_modules/
+
+# ОС файлы
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode-test/
+.idea/
+*.swp
+*.swo
+
+# Publish/Deploy
+**/*.Publish.xml
+**/*.azurewebsites.net
+[pP]ublish/
+**/[Pp]roperties/LaunchProfiles.json
+
+# Фотографии объявлений (не коммитить пользовательские файлы!)
+**/wwwroot/uploads/
+**/wwwroot/images/uploads/
+**/storage/
+!**/wwwroot/images/categories/  # только статичные иконки категорий
+
+# Docker (если используете)
+**/.docker/
+
+# Тесты
+**/TestResults/
+*coverage*
+
+# SQL миграции (если EF Core) - НЕ игнорировать!
+!**/*.sql
+
+# README и docs
+!README.md
+!docker-compose.yml
+!.env.example
