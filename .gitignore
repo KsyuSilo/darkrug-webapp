@@ -37,14 +37,14 @@ packages/
 *.nupkg
 !**/*.nupkg
 
-# Базы данных и секреты (критично для безопасности!)
+# Базы данных и секреты 
 *.db
 *.sqlite
 *.sqlite3
 *.mdb
 **/App_Data/
 .env
-appsettings*.json  # закомментируйте если нужны локальные настройки
+appsettings*.json 
 secrets.json
 
 # Логи и кэш
@@ -52,7 +52,7 @@ logs/
 *.log
 *.cache
 
-# Фронтенд (если используете npm/yarn для UI)
+# Фронтенд 
 **/node_modules/
 **/wwwroot/lib/
 **/wwwroot/node_modules/
@@ -74,20 +74,20 @@ Desktop.ini
 [pP]ublish/
 **/[Pp]roperties/LaunchProfiles.json
 
-# Фотографии объявлений (не коммитить пользовательские файлы!)
+# Фотографии объявлений
 **/wwwroot/uploads/
 **/wwwroot/images/uploads/
 **/storage/
 !**/wwwroot/images/categories/  # только статичные иконки категорий
 
-# Docker (если используете)
+# Docker 
 **/.docker/
 
 # Тесты
 **/TestResults/
 *coverage*
 
-# SQL миграции (если EF Core) - НЕ игнорировать!
+# SQL миграции
 !**/*.sql
 
 # README и docs
