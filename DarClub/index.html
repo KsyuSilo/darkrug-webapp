@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДарКруг — Обмен вещами</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-container">
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="logo-circle"><i class="fas fa-gift"></i></div>
+            <div class="brand-name">ДарКруг</div>
+        </div>
+        <div class="topbar-search">
+            <div class="search-input-wrap">
+                <i class="fas fa-search search-icon"></i>
+                <input class="search-input" type="text" placeholder="Поиск вещей для обмена..." id="searchInput">
+                <i class="fas fa-times search-clear" id="searchClear"></i>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <button class="icon-button active" id="homeBtn"><i class="fas fa-home"></i></button>
+            <button class="icon-button" id="addBtn"><i class="fas fa-plus"></i></button>
+            <button class="icon-button" id="profileBtn"><i class="fas fa-user"></i></button>
+        </div>
+    </header>
+
+    <div class="profile-overlay" id="profileOverlay">
+        <button class="profile-close" id="profileClose"><i class="fas fa-times"></i></button>
+        <div class="profile-panel">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <div class="profile-name" id="profileName">Гость</div>
+                    <div class="profile-status" id="profileStatus">Не авторизован</div>
+                </div>
+            </div>
+            <div class="profile-section" id="authSection">
+                <div class="profile-section-title">Авторизация</div>
+                <input type="text" id="loginName" placeholder="Имя пользователя" class="form-input" style="margin-bottom: 8px;">
+                <input type="text" id="loginPhone" placeholder="Номер телефона (например, +79001234567)" class="form-input" style="margin-bottom: 8px;">
+                
+                <div class="checkbox-group" id="consentGroup">
+                    <input type="checkbox" id="consentCheckbox">
+                    <label for="consentCheckbox">
+                        Я даю <span class="highlight">согласие</span> на обработку моих персональных данных (номера телефона) в соответствии с 
+                        <a href="#" onclick="event.preventDefault(); showPrivacyPolicy();">политикой конфиденциальности</a> 
+                        сервиса <span class="highlight">ДарКруг</span>
+                    </label>
+                </div>
+                
+                <button class="profile-btn" id="loginBtn"><span>Войти</span><i class="fas fa-sign-in-alt"></i></button>
+                <button class="profile-btn" id="registerBtn"><span>Создать аккаунт</span><i class="fas fa-user-plus"></i></button>
+            </div>
+            <div class="profile-buttons" id="userButtons" style="display: none;">
+                <button class="profile-btn" id="myItemsBtn"><span>Мои объявления</span><i class="fas fa-list"></i></button>
+                <button class="profile-btn" id="settingsBtn"><span>Настройки</span><i class="fas fa-cog"></i></button>
+                <button class="profile-btn" id="changeCityBtn"><span>Сменить город</span><i class="fas fa-map-marker-alt"></i></button>
+                <button class="profile-btn danger" id="deleteAccountBtn"><span>Удалить аккаунт</span><i class="fas fa-trash-alt"></i></button>
+                <button class="profile-btn danger" id="logoutBtn"><span>Выйти</span><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="screen active" id="feedScreen">
+            <div class="filters-container">
+                <div class="filters-row" id="mainFilters">
+                    <div class="filter-pill active" data-category="all"><div class="filter-icon"><i class="fas fa-th-large"></i></div><span>Все</span></div>
+                    <div class="filter-pill" data-category="home"><div class="filter-icon"><i class="fas fa-home"></i></div><span>Дом</span></div>
+                    <div class="filter-pill" data-category="clothes"><div class="filter-icon"><i class="fas fa-tshirt"></i></div><span>Одежда</span></div>
+                    <div class="filter-pill" data-category="books"><div class="filter-icon"><i class="fas fa-book-open"></i></div><span>Книги</span></div>
+                    <div class="filter-pill" data-category="kids"><div class="filter-icon"><i class="fas fa-child"></i></div><span>Детям</span></div>
+                    <div class="filter-pill" data-category="pets"><div class="filter-icon"><i class="fas fa-paw"></i></div><span>Питомцы</span></div>
+                    <div class="filter-pill" data-category="sport"><div class="filter-icon"><i class="fas fa-dumbbell"></i></div><span>Спорт</span></div>
+                    <div class="filter-pill" data-category="tech"><div class="filter-icon"><i class="fas fa-laptop-code"></i></div><span>Техника</span></div>
+                    <div class="filter-pill" data-category="other"><div class="filter-icon"><i class="fas fa-ellipsis-h"></i></div><span>Разное</span></div>
+                </div>
+            </div>
+            <div class="pagination"><button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button><span class="page-info">Страница <span id="currentPage">1</span> из <span id="totalPages">3</span></span><button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button></div>
+            <div class="cards-grid" id="cardsGrid"></div>
+        </div>
+
+        <div class="screen" id="createScreen">
+            <div class="form-container">
+                <h1 class="form-title">Новое объявление</h1>
+                <div class="form-group">
+                    <label class="form-label">Фото вещи (до 5 шт.)</label>
+                    <div class="photo-upload" id="photoUpload">
+                        <i class="fas fa-cloud-upload-alt photo-icon"></i>
+                        <div>Загрузите фото</div>
+                        <div class="upload-hint">PNG, JPG до 10 МБ</div>
+                        <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                    </div>
+                    <div class="photo-preview" id="photoPreview"></div>
+                    <div style="font-size:14px;color:var(--text-muted);margin-top:8px;">
+                        Загружено: <span id="photoCount">0</span>/5
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Заголовок *</label><input type="text" class="form-input" id="itemTitle" placeholder="Например: Диван в отличном состоянии"></div>
+                <div class="form-group"><label class="form-label">Описание</label><textarea class="form-textarea" id="itemDescription" placeholder="Укажите состояние, район, время передачи..." rows="4"></textarea></div>
+                <div class="form-group"><label class="form-label">Категория *</label><div class="filters-row form-filters" id="formFilters">
+                    <div class="filter-pill" data-category="home"><div class="filter-icon"><i class="fas fa-home"></i></div><span>Дом</span></div>
+                    <div class="filter-pill" data-category="clothes"><div class="filter-icon"><i class="fas fa-tshirt"></i></div><span>Одежда</span></div>
+                    <div class="filter-pill" data-category="books"><div class="filter-icon"><i class="fas fa-book-open"></i></div><span>Книги</span></div>
+                    <div class="filter-pill" data-category="kids"><div class="filter-icon"><i class="fas fa-child"></i></div><span>Детям</span></div>
+                    <div class="filter-pill" data-category="pets"><div class="filter-icon"><i class="fas fa-paw"></i></div><span>Питомцы</span></div>
+                    <div class="filter-pill" data-category="sport"><div class="filter-icon"><i class="fas fa-dumbbell"></i></div><span>Спорт</span></div>
+                    <div class="filter-pill" data-category="tech"><div class="filter-icon"><i class="fas fa-laptop-code"></i></div><span>Техника</span></div>
+                    <div class="filter-pill" data-category="other"><div class="filter-icon"><i class="fas fa-ellipsis-h"></i></div><span>Разное</span></div>
+                </div></div>
+                <div class="form-row"><div class="form-group"><label class="form-label">Город *</label><select class="form-select" id="citySelect"><option value="">Выберите город</option><option value="Москва">Москва</option><option value="Санкт-Петербург">Санкт-Петербург</option><option value="Новосибирск">Новосибирск</option><option value="Екатеринбург">Екатеринбург</option><option value="Казань">Казань</option></select></div><div class="form-group"><label class="form-label">Номер телефона *</label><input type="text" class="form-input" id="phoneInput" placeholder="+79001234567" maxlength="20"></div></div>
+                <div class="form-actions"><button class="btn-primary" id="publishBtn"><i class="fas fa-paper-plane"></i> Опубликовать</button><button class="btn-secondary" id="cancelBtn">Отмена</button></div>
+            </div>
+        </div>
+    </main>
+    <div class="notification" id="notification"></div>
+</div>
+
+<div class="modal" id="itemModal">
+    <div class="modal-content" id="modalContent"></div>
+</div>
+<div class="modal" id="settingsModal"><div class="modal-content"><h3>Настройки</h3><label style="display: flex; align-items: center; gap: 10px;"><input type="checkbox" id="themeToggle"> Тёмная тема</label><button class="btn-primary" id="closeSettingsBtn" style="margin-top:20px">Закрыть</button></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
